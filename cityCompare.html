@@ -1,0 +1,111 @@
+<!DOCTYPE=html>
+<head>
+    <meta charset='utf-8'>
+    <title>Chiraq</title>
+
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <style>
+        body {
+            font: 10px sans-serif;
+        }
+		
+		.title{
+			font: 16px sans-serif;
+			font-weight: bold;
+		}
+
+        .axis line,
+        .axis path {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+    </style>
+</head>
+<body>
+    <script>
+    var margin = {left:25, top:50, right:25, bottom:25},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+	
+	var chiacgoParse = d3.time.format("%m/%e/%Y %I:%M:%S %p").parse,
+		iraqParse = d3.time.format("%m/%e/%Y").parse;
+	
+	var x = d3.time.scale().range([0, width]),
+		y = d3.scale.linear().range([height, 0]);
+
+	var xAxis = d3.svg.axis().orient("bottom").scale(x),
+		yAxis = d3.svg.axis().orient("left").scale(y);
+		
+	var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+	d3.csv("homicides.csv", function(chicago) {
+	d3.csv("soldiers.csv", function(iraq) {
+	d3.csv("NYPD Major Felonies.csv", function(NYPD) {
+		
+		chicago.forEach(function(d) { 
+			d.Date = chiacgoParse(d.Date); 
+		});
+		iraq.forEach(function(d) {
+			d.Date = iraqParse(d.Date);
+		});
+		NYPD.forEach(function(d) { 
+			d.Date = chiacgoParse(d["Occurrence Date"]); 
+		});
+
+		
+		x.domain([new Date(2015, 0, 1), new Date(2015, 12, 31)]);
+		svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + height +")")
+            .call(xAxis);
+		y.domain([0, 15]);
+		
+		var guns = svg.selectAll(".death")
+            .data(chicago)
+            .enter()
+            .append("g")
+            .attr("class", "g");
+		guns.append("circle")
+			.attr("cx", function(d) { return x(d.Date); })
+			.attr("cy", function() { return Math.floor((Math.random() * 425) + 1); })
+			.attr("r", 3.5)
+			.style("fill", "#B3DDF2");
+			
+		var soldiers = svg.selectAll(".death")
+			.data(iraq)
+			.enter()
+			.append("circle")
+			.attr("cx", function(d) { return x(d.Date); })
+			.attr("cy", function() { return Math.floor((Math.random() * 425) + 1); })
+			.attr("r", 3.5)
+			.style("fill", "#FF0000");
+		
+		var ny = svg.selectAll(".death")
+			.data(NYPD)
+			.enter()
+			.append("circle")
+			.attr("cx", function(d) { return x(d.Date); })
+			.attr("cy", function() { return Math.floor((Math.random() * 425) + 1); })
+			.attr("r", 3.5)
+			.style("fill", "#ff8c00");
+			
+		svg.append("text")
+		.attr("class", "title")
+		.attr("x", (width + margin.left + margin.right) / 2)
+		.attr("text-anchor", "middle")
+		.attr("y", -(margin.top / 2))
+		.text("Chiraq vs. Iraq");
+	
+	});
+	});
+	});
+
+	
+
+    </script>
+</body>
