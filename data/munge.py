@@ -15,6 +15,6 @@ for row in csv.DictReader(iraq):
     data.append({"origin":origin, "date":date})
 
 with open("formatted.csv", "w") as outfile:
-    writer = csv.DictWriter(outfile, fieldnames = ["date", "origin"])
+    writer = csv.DictWriter(outfile, fieldnames = ["date", "origin"], lineterminator = '\n')
     writer.writeheader()
     writer.writerows(data)
