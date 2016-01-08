@@ -3,7 +3,7 @@ September 2015 was rough for Chicago. After reading about a 13 year high in numb
 
 Disclaimer, I *really* need to look at more cities and combat zones to be able to state this conclusively.
 
-I found that while New York City is much larger than Chicago (8.5 mil vs 2.7 mil); Chicago homicides outpaced NYC's where both had completed datasets.
+I found that while New York City is much larger than Chicago (8.5 mil vs 2.7 mil); Chicago homicides outpaced NYC's where both had complete data. So not only did Chicago have more total overall (481 vs 271[until September]), it did so with less people! The casualty data is nowhere near as long, but its equally sobering. Two dates held clusters confirming two significant combat episodes. I'd like to see how these look going backward even further. 
 
 !['Final' version of the presentation](https://github.com/ryan-p-larson/Chiraq/raw/master/examples/circles.png)
 
